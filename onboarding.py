@@ -6,8 +6,8 @@ class OnboardingTutorial:
         "text": {
             "type": "mrkdwn",
             "text": (
-                "Welcome to Slack! :wave: We're so glad you're here. :blush:\n\n"
-                "*Get started by completing the steps below:*"
+                "Welcome to the HackPrinceton organizing team! :wave: \n\n"
+                "*A couple important action items before we start:*"
             ),
         },
     }
@@ -32,35 +32,41 @@ class OnboardingTutorial:
                 self.DIVIDER_BLOCK,
                 *self._get_reaction_block(),
                 self.DIVIDER_BLOCK,
-                *self._get_pin_block(),
+                *self._get_logistics_block(),
+                self.DIVIDER_BLOCK,
+                *self._eclub_block(),
             ],
         }
 
     def _get_reaction_block(self):
-        task_checkmark = self._get_checkmark(self.reaction_task_completed)
         text = (
-            f"{task_checkmark} *Add an emoji reaction to this message* :thinking_face:\n"
-            "You can quickly respond to any message on Slack with an emoji reaction."
-            "Reactions can be used for any purpose: voting, checking off to-do items, showing excitement."
+            "All of our team communications will be held over Slack, so please make sure your notifications are turned on! We have a separate channel set up for each team. Please react to this message to get added to your team's channel: \n"
+            ":receipt: *Operations*\n"
+            ":money_with_wings: *Partnerships*\n"
+            ":computer: *Dev*\n"
+            ":art: *Branding*\n"
+            ":tada: *Experience*\n"
         )
         information = (
             ":information_source: *<https://get.slack.help/hc/en-us/articles/206870317-Emoji-reactions|"
             "Learn How to Use Emoji Reactions>*"
         )
         return self._get_task_block(text, information)
-
-    def _get_pin_block(self):
-        task_checkmark = self._get_checkmark(self.pin_task_completed)
+    
+    def _get_logistics_block(self):
         text = (
-            f"{task_checkmark} *Pin this message* :round_pushpin:\n"
-            "Important messages and files can be pinned to the details pane in any channel or"
-            " direct message, including group messages, for easy reference."
+            "*Logistics:* \n\n"
+            "We will be holding *pick-ups* this Friday, September 22nd for the Entrepreneurship Club (E-Club) Mixer! :tropical_drink: Please fill out <https://docs.google.com/forms/d/e/1FAIpQLSfOzTtAt42pLSaGIWO6y0sVWO34LehYe2g3PyUFHtFBdaH3xA/viewform|this form> and be in your dorm this Friday from 8:30 - 9:30 PM! \n \n"
+            "Our first all-team meeting will be next Tuesday, September 26th at 9 PM @ Frist MPR, and we're super excited to see you there! \n \n"
+            "If you have any questions, please feel free to reach out to Alice via Slack or email (ah5087@princeton.edu)!"
         )
-        information = (
-            ":information_source: *<https://get.slack.help/hc/en-us/articles/205239997-Pinning-messages-and-files"
-            "|Learn How to Pin a Message>*"
+        return self._get_task_block(text)
+
+    def _eclub_block(self):
+        text = (
+            "Lastly, to confirm your E-Club membership please fill out the yearly census by Sunday, September 24th. We want to get to know who our E-Club members are, what experiences they've had, and which backgrounds they hail from. This shouldn't take more than 2 minutes, and most questions are optional."
         )
-        return self._get_task_block(text, information)
+        return self._get_task_block(text)
 
     @staticmethod
     def _get_checkmark(task_completed: bool) -> str:
@@ -69,8 +75,12 @@ class OnboardingTutorial:
         return ":white_large_square:"
 
     @staticmethod
-    def _get_task_block(text, information):
-        return [
-            {"type": "section", "text": {"type": "mrkdwn", "text": text}},
-            {"type": "context", "elements": [{"type": "mrkdwn", "text": information}]},
+    def _get_task_block(text, information=""):
+        task_block = [
+            {"type": "section", "text": {"type": "mrkdwn", "text": text}}
         ]
+        if information:
+            task_block.append(
+                {"type": "context", "elements": [{"type": "mrkdwn", "text": information}]}
+            )
+        return task_block

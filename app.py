@@ -5,8 +5,7 @@ from slack_sdk.web import WebClient
 from onboarding import OnboardingTutorial
 import ssl as ssl_lib
 import certifi
-import json
-from flask import Flask, request, make_response
+from flask import Flask, request
 
 # Set up SSL context
 ssl_context = ssl_lib.create_default_context(cafile=certifi.where())
@@ -22,6 +21,15 @@ app = App(
 
 # Store app data in-memory
 onboarding_tutorials_sent = {}
+
+# Mapping of emojis to channels
+emoji_to_channel = {
+    "receipt": "C074QB3CSLF",  # operations
+    "money_with_wings": "C0754Q7JB6F",  # partnerships
+    "computer": "C075TMF6L00",  # dev
+    "art": "C075HHQMBCH",  # branding
+    "tada": "C0754TJ4LRG",  # experience
+}
 
 # Function to start onboarding
 def start_onboarding(user_id: str, channel: str, client: WebClient):
@@ -62,31 +70,47 @@ def onboarding_message(event, client):
 
 # ============= Reaction Added Events ============= #
 @app.event("reaction_added")
-def update_emoji(event, client):
-    """Update the onboarding welcome message after receiving a "reaction_added"
-    event from Slack. Update timestamp for welcome message as well.
-    """
-    # Get the ids of the Slack user and channel associated with the incoming event
-    channel_id = event.get("item", {}).get("channel")
+def handle_reaction(event, client):
+    """Handle reaction added events to add users to specific channels based on emoji."""
     user_id = event.get("user")
+    reaction = event.get("reaction")
 
-    if channel_id not in onboarding_tutorials_sent:
-        return
+    # Debug logging
+    logging.debug(f"Received reaction: {reaction} from user: {user_id}")
 
-    # Get the original tutorial sent.
-    onboarding_tutorial = onboarding_tutorials_sent[channel_id].get(user_id)
+    # Check if the reaction emoji is in our mapping
+    if reaction in emoji_to_channel:
+        channel_id = emoji_to_channel[reaction]
+        logging.debug(f"Adding user {user_id} to channel {channel_id} for reaction {reaction}")
+        add_user_to_channel(client, user_id, channel_id)
+    else:
+        logging.debug(f"Reaction {reaction} not found in emoji_to_channel mapping")
 
-    if not onboarding_tutorial:
-        return
+    # Update onboarding message for the user if applicable
+    channel_id = event.get("item", {}).get("channel")
+    if channel_id in onboarding_tutorials_sent and user_id in onboarding_tutorials_sent[channel_id]:
+        # Get the original tutorial sent.
+        onboarding_tutorial = onboarding_tutorials_sent[channel_id][user_id]
 
-    # Mark the reaction task as completed.
-    onboarding_tutorial.reaction_task_completed = True
+        # Mark the reaction task as completed.
+        onboarding_tutorial.reaction_task_completed = True
 
-    # Get the new message payload
-    message = onboarding_tutorial.get_message_payload()
+        # Get the new message payload
+        message = onboarding_tutorial.get_message_payload()
 
-    # Post the updated message in Slack
-    updated_message = client.chat_update(**message)
+        # Post the updated message in Slack
+        updated_message = client.chat_update(**message)
+
+# Function to add user to a channel
+def add_user_to_channel(client: WebClient, user_id: str, channel_id: str):
+    try:
+        response = client.conversations_invite(
+            channel=channel_id,
+            users=user_id
+        )
+        logging.debug(f"User {user_id} added to channel {channel_id}: {response}")
+    except Exception as e:
+        logging.error(f"Error adding user to channel: {e}")
 
 # =============== Pin Added Events ================ #
 @app.event("pin_added")
@@ -139,7 +163,5 @@ def slack_events():
 
 # Run the app
 if __name__ == "__main__":
-    logger = logging.getLogger()
-    logger.setLevel(logging.DEBUG)
-    logger.addHandler(logging.StreamHandler())
+    logging.basicConfig(level=logging.DEBUG)
     flask_app.run(host='0.0.0.0', port=3000)
