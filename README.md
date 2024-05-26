@@ -2,18 +2,18 @@
 
 ## Introduction
 
-The Slack Onboarding Bot is a powerful tool designed to streamline the onboarding process for new team members in your Slack workspace. By automating the delivery of welcome messages and providing essential information, this bot ensures that new members are quickly brought up to speed with your team's workflow and culture.
+The Slack Onboarding Bot is designed to streamline the onboarding process for new team members.
 
 ### Key Features:
 
-- **Automated Welcome Messages:** Automatically sends a welcome message to new team members when they join the workspace.
-- **Channel Assignment via Reactions:** Allows users to join specific channels by reacting with designated emojis.
-- **Important Announcements:** Delivers important logistical information and announcements to new members.
-- **Customizable Content:** Easily update and customize the welcome message and additional information blocks to fit your team’s needs.
+- **Automated Welcome:** Automatically sends a welcome message to new team members when they join the Slack workspace.
+- **Channel Assignment:** Allows users to join specific channels using emoji reactions.
+- **Announcements:** Delivers important logistic information to all new members.
+- **Customizable:** Easily update and customize the welcome message and information blocks.
 
 ## Demo
 
-Here's a quick demo showcasing the Slack Onboarding Bot in action. Watch how new team members receive welcome messages and how they can join different channels by reacting with specific emojis.
+Here is a quick demo:
 
 [![Slack Onboarding Bot Demo](https://img.youtube.com/vi/6ExcNBB_x_0/0.jpg)](https://www.youtube.com/watch?v=6ExcNBB_x_0&ab_channel=AliceHou)
 
@@ -55,7 +55,7 @@ Here's a quick demo showcasing the Slack Onboarding Bot in action. Watch how new
 
 6. **Set up event subscriptions in Slack:**
 
-   - Go to your Slack app's settings page.
+   - Go to the Slack app's settings page.
    - Enable "Event Subscriptions" and set the request URL to your server's endpoint, e.g., `http://your-server.com/slack/events`.
    - Subscribe to the following bot events: `team_join`, `reaction_added`, `pin_added`, and `message`.
 
@@ -68,16 +68,4 @@ Here's a quick demo showcasing the Slack Onboarding Bot in action. Watch how new
 
 ## Usage
 
-Once set up, the Slack Onboarding Bot will automatically send a welcome message to any new user who joins the workspace. Users can react to the message with specific emojis to be added to relevant channels. The bot will also provide important logistical information and announcements.
-
-## Contributing
-
-We welcome contributions! Please fork the repository and submit a pull request with your changes. Ensure your code adheres to the existing style and includes appropriate tests.
-
-## License
-
-This project is licensed under the MIT License. See the LICENSE file for more details.
-
-## Contact
-
-If you have any questions or need further assistance, please contact [Alice Hou](mailto:ah5087@princeton.edu).
+Once set up, the bot will automatically send a welcome message to any new user who joins the workspace. Users can react to the message with specific emojis to be added to the respective channels.
