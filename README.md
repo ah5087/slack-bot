@@ -1,5 +1,5 @@
 ```markdown
-# Slack Onboarding Bot
+## Slack Onboarding Bot
 
 ## Introduction
 The Slack Onboarding Bot is a powerful tool designed to streamline the onboarding process for new team members in your Slack workspace. By automating the delivery of welcome messages and providing essential information, this bot ensures that new members are quickly brought up to speed with your team's workflow and culture.
