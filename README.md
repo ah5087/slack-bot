@@ -43,8 +43,8 @@ Here is a quick demo:
    Create a `.env` file and add your Slack bot token and signing secret:
 
    ```plaintext
-   SLACK_BOT_TOKEN=xoxb-...
-   SLACK_SIGNING_SECRET=...
+   SLACK_BOT_TOKEN="######"
+   SLACK_SIGNING_SECRET="######"
    ```
 
 5. **Run the application:**
