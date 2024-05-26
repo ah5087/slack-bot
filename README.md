@@ -15,7 +15,7 @@ The Slack Onboarding Bot is a powerful tool designed to streamline the onboardin
 
 Here's a quick demo showcasing the Slack Onboarding Bot in action. Watch how new team members receive welcome messages and how they can join different channels by reacting with specific emojis.
 
-[![Slack Onboarding Bot Demo][(https://img.youtube.com/vi/VIDEO_ID/0.jpg)](https://www.youtube.com/watch?v=VIDEO_ID](https://youtu.be/6ExcNBB_x_0))
+[![Slack Bot Demo](https://img.youtube.com/vi/v=6ExcNBB_x_0/maxresdefault.jpg)](https://www.youtube.com/watch?v=VIDEO_ID](https://youtu.be/6ExcNBB_x_0)
 
 ## Setup
 
