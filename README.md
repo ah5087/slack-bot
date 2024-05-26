@@ -11,8 +11,6 @@
 
 ## Demo
 
-Here is a quick demo:
-
 [![Slack Onboarding Bot Demo](https://img.youtube.com/vi/6ExcNBB_x_0/0.jpg)](https://www.youtube.com/watch?v=6ExcNBB_x_0&ab_channel=AliceHou)
 
 ## Setup
