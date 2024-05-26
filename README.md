@@ -2,9 +2,7 @@
 
 ## Introduction
 
-The Slack Onboarding Bot is designed to streamline the onboarding process for new team members.
-
-### Key Features:
+### Features:
 
 - **Automated Welcome:** Automatically sends a welcome message to new team members when they join the Slack workspace.
 - **Channel Assignment:** Allows users to join specific channels using emoji reactions.
